@@ -1,5 +1,5 @@
 language: cpp
-dist: trusty
+dist: bionic
 matrix:
   include:
     - compiler: gcc
@@ -11,22 +11,23 @@ addons:
   apt:
     sources:
     - ubuntu-toolchain-r-test
-    - sourceline: 'ppa:beineri/opt-qt591-trusty'
+    - sourceline: 'ppa:beineri/opt-qt-6.0.1-bionic'
     packages:
     - gcc-5
     - g++-5
     - clang
-    - qt59tools
-    - qt59base
+    - qt601tools
+    - qt601base
 
 before_install:
-    - if [ "$TRAVIS_OS_NAME" == "linux" ]; then sudo apt-add-repository ppa:beineri/opt-qt591-trusty -y; fi
+    - if [ "$TRAVIS_OS_NAME" == "linux" ]; then sudo apt-add-repository ppa:beineri/opt-qt-6.0.1-bionic -y; fi
 
 install:
-    - if [ "$TRAVIS_OS_NAME" == "linux" ]; then sudo apt-get install -qq qt59base; source /opt/qt59/bin/qt59-env.sh; fi
-    - if [ "$TRAVIS_OS_NAME" == "linux" ]; then export QTDIR_GMAKE_x86=/opt/qt59; fi
-    - if [ "$TRAVIS_OS_NAME" == "linux" ]; then export QTDIR_GMAKE_x64=/opt/qt59; fi
-    - if [ "$TRAVIS_OS_NAME" == "linux" ]; then export PKG_CONFIG_PATH=$PKG_CONFIG_PATH:/opt/qt59/lib/pkgconfig; fi
+    - if [ "$TRAVIS_OS_NAME" == "linux" ]; then sudo apt-get install -qq qt601base; source /opt/qt601/bin/qt601-env.sh; fi
+    - if [ "$TRAVIS_OS_NAME" == "linux" ]; then sudo apt-get -qq update; fi
+    - if [ "$TRAVIS_OS_NAME" == "linux" ]; then export QTDIR_GMAKE_x86=/opt/qt601; fi
+    - if [ "$TRAVIS_OS_NAME" == "linux" ]; then export QTDIR_GMAKE_x64=/opt/qt601; fi
+    - if [ "$TRAVIS_OS_NAME" == "linux" ]; then export PKG_CONFIG_PATH=$PKG_CONFIG_PATH:/opt/qt601:/lib/pkgconfig; fi
     - if [ "$TRAVIS_OS_NAME" == "linux" ]; then sudo apt-get install luarocks; fi
     - if [ "$TRAVIS_OS_NAME" == "linux" ]; then sudo luarocks install luafilesystem; fi
 
